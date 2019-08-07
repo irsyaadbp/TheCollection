@@ -1,7 +1,8 @@
-package com.irsyaad.dicodingsubmission.thecollection
+package com.irsyaad.dicodingsubmission.thecollection.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.irsyaad.dicodingsubmission.thecollection.R
 import com.irsyaad.dicodingsubmission.thecollection.adapter.ViewPagerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 

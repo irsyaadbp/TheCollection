@@ -3,8 +3,8 @@ package com.irsyaad.dicodingsubmission.thecollection.adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.irsyaad.dicodingsubmission.thecollection.view.fragment.FilmFragment
-import com.irsyaad.dicodingsubmission.thecollection.view.fragment.TvShowFragment
+import com.irsyaad.dicodingsubmission.thecollection.ui.fragment.FilmFragment
+import com.irsyaad.dicodingsubmission.thecollection.ui.fragment.TvShowFragment
 
 class ViewPagerAdapter(fragmentManager : FragmentManager) : FragmentPagerAdapter(fragmentManager) {
 
