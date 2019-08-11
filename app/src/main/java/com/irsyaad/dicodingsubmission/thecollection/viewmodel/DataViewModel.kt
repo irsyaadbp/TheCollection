@@ -15,32 +15,30 @@ import retrofit2.Response
 class DataViewModel(private val lang: String) : ViewModel() {
 
     private val service = ApiRepository.getData()
-    private val listFilm: MutableLiveData<List<Results>> by lazy {
-        MutableLiveData<List<Results>>().also {
-            setDataFilm(lang)
-        }
-    }
+    private val listFilm: MutableLiveData<List<Results>> = MutableLiveData()
 
 
     fun getDataFilm(): LiveData<List<Results>> {
+        if(listFilm.value == null) {
+            setDataFilm(lang)
+            Log.d("uye2", "load lagi dari viewmodel")
+        }else{
+            Log.d("uye2", "gak load lagi dari viewmodel dong")
+        }
         return listFilm
     }
 
-    private fun setDataFilm(lang : String) {
-//        var list:
-        service.getDataFilm(API_KEY, lang).enqueue(object : Callback<Results>{
-            override fun onResponse(call: Call<Results>, response: Response<Results>) {
+    fun setDataFilm(lang : String) {
+        service.getDataFilm(API_KEY, lang).enqueue(object : Callback<DataModel>{
+            override fun onResponse(call: Call<DataModel>, response: Response<DataModel>) {
                 val data = response.body()
-                Log.d("uye", "${data}")
-
-//                list = data?
+                Log.d("uye1", "${data}")
+                listFilm.postValue(data?.results)
             }
 
-            override fun onFailure(call: Call<Results>, t: Throwable) {
-                Log.d("uye", "${t.message}")
+            override fun onFailure(call: Call<DataModel>, t: Throwable) {
+                Log.d("uye1", "${t.message}")
             }
         })
-
-//        return list
     }
 }
