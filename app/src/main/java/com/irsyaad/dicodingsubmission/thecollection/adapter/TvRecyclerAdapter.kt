@@ -1,18 +1,17 @@
 package com.irsyaad.dicodingsubmission.thecollection.adapter
 
-import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.irsyaad.dicodingsubmission.thecollection.R
-import com.irsyaad.dicodingsubmission.thecollection.model.Results
+import com.irsyaad.dicodingsubmission.thecollection.model.DetailTv
 import kotlinx.android.synthetic.main.item_list_layout.view.*
 
-class DataRecyclerAdapter : RecyclerView.Adapter<DataViewHolder>() {
-    private var data: List<Results> = listOf()
-    fun setData(mData: List<Results>){
+class TvRecyclerAdapter : RecyclerView.Adapter<TvRecyclerAdapter.DataViewHolder>() {
+    private var data: List<DetailTv> = listOf()
+    fun setData(mData: List<DetailTv>){
         data = mData
         notifyDataSetChanged()
     }
@@ -29,13 +28,13 @@ class DataRecyclerAdapter : RecyclerView.Adapter<DataViewHolder>() {
         holder.bind(data[position])
     }
 
-}
-
-class DataViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-    private val txtTitle = view.txtTitle
-    private val txtDesc = view.txtDescription
-    fun bind(data: Results){
-        txtTitle.text = data.title
-        txtDesc.text = data.overview
+    class DataViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        private val txtTitle = view.txtTitle
+        private val txtDesc = view.txtDescription
+        fun bind(data: DetailTv){
+            txtTitle.text = data.name
+            txtDesc.text = data.overview
+        }
     }
+
 }

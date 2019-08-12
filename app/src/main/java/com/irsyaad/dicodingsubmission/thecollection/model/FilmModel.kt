@@ -2,13 +2,12 @@ package com.irsyaad.dicodingsubmission.thecollection.model
 
 import com.google.gson.annotations.SerializedName
 
-data class DataModel (
-//    val page: Int,
+data class FilmModel (
     @SerializedName("results")
-    val results: List<Results>
+    val results: List<DetailFilm>
 )
 
-data class Results(
+data class DetailFilm(
     val vote_count: Int,
     val id: Int,
     val vote_average: Double,

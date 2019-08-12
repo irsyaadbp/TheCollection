@@ -1,7 +1,6 @@
 package com.irsyaad.dicodingsubmission.thecollection.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,8 +11,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.irsyaad.dicodingsubmission.thecollection.R
-import com.irsyaad.dicodingsubmission.thecollection.adapter.DataRecyclerAdapter
-import com.irsyaad.dicodingsubmission.thecollection.model.Results
+import com.irsyaad.dicodingsubmission.thecollection.adapter.FilmRecyclerAdapter
 import com.irsyaad.dicodingsubmission.thecollection.viewmodel.DataViewModel
 import com.irsyaad.dicodingsubmission.thecollection.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_film.*
@@ -22,27 +20,23 @@ class FilmFragment : Fragment() {
 
     private lateinit var viewModel: DataViewModel
     private lateinit var lang: String
-    private lateinit var filmAdapter: DataRecyclerAdapter
+    private lateinit var filmAdapter: FilmRecyclerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.d("uye", "onCreateView")
         return inflater.inflate(R.layout.fragment_film, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        Log.d("uye", "onViewCreated")
-
         lang = "en-Us"
 
         viewModel = ViewModelProviders.of(this, ViewModelFactory().viewModelFactory{ DataViewModel(lang)})[DataViewModel::class.java]
         isLoading()
         isError()
-        viewModel.getDataFilm().observe(this, Observer<List<Results>> { result ->
+        viewModel.getDataFilm().observe(this, Observer { result ->
             if(result != null){
                 filmAdapter.setData(result)
             }else{
@@ -50,7 +44,7 @@ class FilmFragment : Fragment() {
             }
         })
 
-        filmAdapter = DataRecyclerAdapter()
+        filmAdapter = FilmRecyclerAdapter()
 
         recyclerView.apply {
             layoutManager = LinearLayoutManager(context)
