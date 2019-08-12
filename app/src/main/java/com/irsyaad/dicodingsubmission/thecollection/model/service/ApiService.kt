@@ -11,6 +11,6 @@ interface ApiService {
     @GET("movie")
     fun getDataFilm(@Query("api_key") api_key: String, @Query("language") lang: String): Call<DataModel>
 
-    @GET("tv?api_key={api_key}&language={lang}")
-    fun getDataTv(@Query("api_key") api_key: String, @Query("lang") lang: String): Call<DataModel>
+    @GET("tv")
+    fun getDataTv(@Query("api_key") api_key: String, @Query("language") lang: String): Call<DataModel>
 }

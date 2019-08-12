@@ -15,7 +15,10 @@ import retrofit2.Response
 class DataViewModel(private val lang: String) : ViewModel() {
 
     private val service = ApiRepository.getData()
-    private val listFilm: MutableLiveData<List<Results>> = MutableLiveData()
+    private  val listFilm: MutableLiveData<List<Results>> = MutableLiveData()
+    private  val listTvShow: MutableLiveData<List<Results>> = MutableLiveData()
+    var showLoading: MutableLiveData<Boolean> = MutableLiveData()
+    var isError: MutableLiveData<Boolean> = MutableLiveData()
 
 
     fun getDataFilm(): LiveData<List<Results>> {
@@ -29,15 +32,38 @@ class DataViewModel(private val lang: String) : ViewModel() {
     }
 
     fun setDataFilm(lang : String) {
+        showLoading.postValue(true)
         service.getDataFilm(API_KEY, lang).enqueue(object : Callback<DataModel>{
             override fun onResponse(call: Call<DataModel>, response: Response<DataModel>) {
+                showLoading.postValue(false)
+                isError.postValue(false)
+
                 val data = response.body()
-                Log.d("uye1", "${data}")
+
                 listFilm.postValue(data?.results)
             }
 
             override fun onFailure(call: Call<DataModel>, t: Throwable) {
-                Log.d("uye1", "${t.message}")
+                showLoading.postValue(false)
+                isError.postValue(true)
+            }
+        })
+    }
+
+    fun setDataTv(lang: String){
+        showLoading.postValue(true)
+        service.getDataTv(API_KEY, lang).enqueue(object : Callback<DataModel>{
+            override fun onResponse(call: Call<DataModel>, response: Response<DataModel>) {
+                showLoading.postValue(false)
+                isError.postValue(false)
+
+                val data = response.body()
+                listTvShow.postValue(data?.results)
+            }
+
+            override fun onFailure(call: Call<DataModel>, t: Throwable) {
+                showLoading.postValue(false)
+                isError.postValue(true)
             }
         })
     }
