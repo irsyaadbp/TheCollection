@@ -11,10 +11,12 @@ import kotlinx.android.synthetic.main.item_list_layout.view.*
 
 class FilmRecyclerAdapter : RecyclerView.Adapter<FilmRecyclerAdapter.DataViewHolder>() {
     private var data: List<DetailFilm> = listOf()
+
     fun setData(mData: List<DetailFilm>){
         data = mData
         notifyDataSetChanged()
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataViewHolder {
         return DataViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_list_layout, parent, false))
     }
@@ -31,6 +33,7 @@ class FilmRecyclerAdapter : RecyclerView.Adapter<FilmRecyclerAdapter.DataViewHol
     class DataViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val txtTitle = view.txtTitle
         private val txtDesc = view.txtDescription
+
         fun bind(data: DetailFilm){
             txtTitle.text = data.title
             txtDesc.text = data.overview

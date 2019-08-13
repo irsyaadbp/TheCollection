@@ -30,7 +30,7 @@ class DataViewModel(private val lang: String) : ViewModel() {
     }
 
     fun getDataTv(): LiveData<List<DetailTv>> {
-        if(listFilm.value == null) setDataTv(lang)
+        if(listTvShow.value == null) setDataTv(lang)
         return listTvShow
 
     }
@@ -54,7 +54,7 @@ class DataViewModel(private val lang: String) : ViewModel() {
         })
     }
 
-    fun setDataTv(lang: String){
+    private fun setDataTv(lang: String){
         showLoading.postValue(true)
         service.getDataTv(API_KEY, lang).enqueue(object : Callback<TvModel>{
             override fun onResponse(call: Call<TvModel>, response: Response<TvModel>) {

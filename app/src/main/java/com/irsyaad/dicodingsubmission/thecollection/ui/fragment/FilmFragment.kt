@@ -40,26 +40,29 @@ class FilmFragment : Fragment() {
             if(result != null){
                 filmAdapter.setData(result)
             }else{
-                Toast.makeText(context, "Tidak ada data", Toast.LENGTH_LONG).show()
+                viewModel.isError.value = true
             }
         })
 
         filmAdapter = FilmRecyclerAdapter()
 
-        recyclerView.apply {
+        recyclerViewFilm.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = filmAdapter
         }
+        onSwipeRefresh()
     }
 
     private fun isLoading(){
         viewModel.showLoading.observe(this, Observer {status ->
             if(status){
-                progressBar.visibility = View.VISIBLE
-                recyclerView.visibility = View.GONE
+                progressBarFilm.visibility = View.VISIBLE
+                recyclerViewFilm.visibility = View.GONE
+                errorFilm.visibility = View.GONE
             }else{
-                recyclerView.visibility = View.VISIBLE
-                progressBar.visibility = View.GONE
+                recyclerViewFilm.visibility = View.VISIBLE
+                progressBarFilm.visibility = View.GONE
+                errorFilm.visibility = View.GONE
             }
         })
     }
@@ -67,8 +70,18 @@ class FilmFragment : Fragment() {
     private fun isError(){
         viewModel.isError.observe(this, Observer { status ->
             if(status){
+                errorFilm.visibility = View.VISIBLE
+                recyclerViewFilm.visibility = View.GONE
+                progressBarFilm.visibility = View.GONE
                 Toast.makeText(context, "Connection Error :(", Toast.LENGTH_LONG).show()
             }
         })
+    }
+
+    private fun onSwipeRefresh(){
+        swipeRefreshFilm.setOnRefreshListener {
+            viewModel.setDataFilm(lang)
+            swipeRefreshFilm.isRefreshing = false
+        }
     }
 }

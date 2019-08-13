@@ -23,8 +23,8 @@ class ViewPagerAdapter(fragmentManager : FragmentManager) : FragmentPagerAdapter
 
     override fun getPageTitle(position: Int): CharSequence? {
         return when(position){
-            0-> "Film Fragment"
-            else -> "TV Show Fragment"
+            0-> "Movie"
+            else -> "TV Show"
         }
     }
 }

@@ -12,11 +12,10 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.irsyaad.dicodingsubmission.thecollection.R
-import com.irsyaad.dicodingsubmission.thecollection.adapter.FilmRecyclerAdapter
 import com.irsyaad.dicodingsubmission.thecollection.adapter.TvRecyclerAdapter
 import com.irsyaad.dicodingsubmission.thecollection.viewmodel.DataViewModel
 import com.irsyaad.dicodingsubmission.thecollection.viewmodel.ViewModelFactory
-import kotlinx.android.synthetic.main.fragment_film.*
+import kotlinx.android.synthetic.main.fragment_tv_show.*
 
 class TvShowFragment : Fragment() {
 
@@ -37,32 +36,38 @@ class TvShowFragment : Fragment() {
         lang = "en-Us"
 
         viewModel = ViewModelProviders.of(this, ViewModelFactory().viewModelFactory{ DataViewModel(lang)})[DataViewModel::class.java]
+
         isLoading()
         isError()
+
         viewModel.getDataTv().observe(this, Observer { result ->
             if(result != null){
                 filmAdapter.setData(result)
             }else{
-                Toast.makeText(context, "Tidak ada data", Toast.LENGTH_LONG).show()
+                viewModel.isError.value = true
             }
         })
 
         filmAdapter = TvRecyclerAdapter()
 
-        recyclerView.apply {
+        recyclerViewTv.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = filmAdapter
         }
+
+        onSwipeRefresh()
     }
 
     private fun isLoading(){
         viewModel.showLoading.observe(this, Observer {status ->
             if(status){
-                progressBar.visibility = View.VISIBLE
-                recyclerView.visibility = View.GONE
+                progressBarTv.visibility = View.VISIBLE
+                recyclerViewTv.visibility = View.GONE
+                errorTv.visibility = View.GONE
             }else{
-                recyclerView.visibility = View.VISIBLE
-                progressBar.visibility = View.GONE
+                recyclerViewTv.visibility = View.VISIBLE
+                progressBarTv.visibility = View.GONE
+                errorTv.visibility = View.GONE
             }
         })
     }
@@ -70,9 +75,19 @@ class TvShowFragment : Fragment() {
     private fun isError(){
         viewModel.isError.observe(this, Observer { status ->
             if(status){
+                errorTv.visibility = View.VISIBLE
+                recyclerViewTv.visibility = View.GONE
+                progressBarTv.visibility = View.GONE
                 Toast.makeText(context, "Connection Error :(", Toast.LENGTH_LONG).show()
             }
         })
+    }
+
+    private fun onSwipeRefresh(){
+        swipeRefreshTv.setOnRefreshListener {
+            viewModel.setDataFilm(lang)
+            swipeRefreshTv.isRefreshing = false
+        }
     }
 
 }
