@@ -1,5 +1,6 @@
 package com.irsyaad.dicodingsubmission.thecollection.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,13 +13,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.irsyaad.dicodingsubmission.thecollection.R
 import com.irsyaad.dicodingsubmission.thecollection.adapter.FilmRecyclerAdapter
-import com.irsyaad.dicodingsubmission.thecollection.viewmodel.DataViewModel
+import com.irsyaad.dicodingsubmission.thecollection.ui.activity.DetailFilmActivity
+import com.irsyaad.dicodingsubmission.thecollection.viewmodel.ListDataViewModel
 import com.irsyaad.dicodingsubmission.thecollection.viewmodel.ViewModelFactory
+
 import kotlinx.android.synthetic.main.fragment_film.*
 
 class FilmFragment : Fragment() {
 
-    private lateinit var viewModel: DataViewModel
+    private lateinit var viewModel: ListDataViewModel
     private lateinit var lang: String
     private lateinit var filmAdapter: FilmRecyclerAdapter
 
@@ -33,7 +36,7 @@ class FilmFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         lang = "en-Us"
 
-        viewModel = ViewModelProviders.of(this, ViewModelFactory().viewModelFactory{ DataViewModel(lang)})[DataViewModel::class.java]
+        viewModel = ViewModelProviders.of(this, ViewModelFactory().viewModelFactory{ ListDataViewModel(lang)})[ListDataViewModel::class.java]
         isLoading()
         isError()
         viewModel.getDataFilm().observe(this, Observer { result ->
@@ -44,13 +47,18 @@ class FilmFragment : Fragment() {
             }
         })
 
-        filmAdapter = FilmRecyclerAdapter()
+        filmAdapter = FilmRecyclerAdapter(context!!){
+            val detail = Intent(context, DetailFilmActivity::class.java)
+            detail.putExtra("idfilm", it.id)
+            startActivity(detail)
+        }
 
         recyclerViewFilm.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = filmAdapter
         }
         onSwipeRefresh()
+
     }
 
     private fun isLoading(){

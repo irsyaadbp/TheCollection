@@ -1,18 +1,21 @@
 package com.irsyaad.dicodingsubmission.thecollection.adapter
 
+import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.irsyaad.dicodingsubmission.thecollection.R
-import com.irsyaad.dicodingsubmission.thecollection.model.DetailFilm
+import com.irsyaad.dicodingsubmission.thecollection.model.ListDetailFilm
 import kotlinx.android.synthetic.main.item_list_layout.view.*
 
-class FilmRecyclerAdapter : RecyclerView.Adapter<FilmRecyclerAdapter.DataViewHolder>() {
-    private var data: List<DetailFilm> = listOf()
+class FilmRecyclerAdapter(private val context: Context, val clickListener: (ListDetailFilm) -> Unit) : RecyclerView.Adapter<FilmRecyclerAdapter.DataViewHolder>() {
+    private var data: List<ListDetailFilm> = listOf()
 
-    fun setData(mData: List<DetailFilm>){
+    fun setData(mData: List<ListDetailFilm>){
         data = mData
         notifyDataSetChanged()
     }
@@ -26,17 +29,24 @@ class FilmRecyclerAdapter : RecyclerView.Adapter<FilmRecyclerAdapter.DataViewHol
     }
 
     override fun onBindViewHolder(holder: DataViewHolder, position: Int) {
-        Log.d("uyi", "${data[position]}")
-        holder.bind(data[position])
+        holder.bind(data[position], context)
+        holder.itemView.setOnClickListener{clickListener(data[position])}
     }
 
     class DataViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val txtTitle = view.txtTitle
         private val txtDesc = view.txtDescription
+        private val imgPoster = view.imgPoster
 
-        fun bind(data: DetailFilm){
+        fun bind(data: ListDetailFilm, context: Context){
+
             txtTitle.text = data.title
             txtDesc.text = data.overview
+
+            Glide.with(context)
+                    .load("https://image.tmdb.org/t/p/w185${data.poster_path}")
+                    .centerCrop()
+                    .into(imgPoster)
         }
     }
 

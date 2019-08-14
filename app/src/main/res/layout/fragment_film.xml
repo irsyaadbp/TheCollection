@@ -28,7 +28,7 @@
     <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/progressBarFilm"
             android:layout_width="300dp"
-            android:layout_height="wrap_content"
+            android:layout_height="300dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -36,7 +36,7 @@
             app:lottie_autoPlay="true"
             app:lottie_fileName="loading.json"
             app:lottie_loop="true"
-            app:layout_constraintVertical_bias="0.2"/>
+            app:layout_constraintVertical_bias="0.3"/>
 
     <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/errorFilm"

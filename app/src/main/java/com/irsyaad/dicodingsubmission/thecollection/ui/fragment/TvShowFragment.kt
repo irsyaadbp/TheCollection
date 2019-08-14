@@ -1,6 +1,7 @@
 package com.irsyaad.dicodingsubmission.thecollection.ui.fragment
 
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,13 +14,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.irsyaad.dicodingsubmission.thecollection.R
 import com.irsyaad.dicodingsubmission.thecollection.adapter.TvRecyclerAdapter
-import com.irsyaad.dicodingsubmission.thecollection.viewmodel.DataViewModel
+import com.irsyaad.dicodingsubmission.thecollection.ui.activity.DetailTvActivity
+import com.irsyaad.dicodingsubmission.thecollection.viewmodel.ListDataViewModel
 import com.irsyaad.dicodingsubmission.thecollection.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_tv_show.*
 
 class TvShowFragment : Fragment() {
 
-    private lateinit var viewModel: DataViewModel
+    private lateinit var viewModel: ListDataViewModel
     private lateinit var lang: String
     private lateinit var filmAdapter: TvRecyclerAdapter
 
@@ -35,7 +37,7 @@ class TvShowFragment : Fragment() {
 
         lang = "en-Us"
 
-        viewModel = ViewModelProviders.of(this, ViewModelFactory().viewModelFactory{ DataViewModel(lang)})[DataViewModel::class.java]
+        viewModel = ViewModelProviders.of(this, ViewModelFactory().viewModelFactory{ ListDataViewModel(lang)})[ListDataViewModel::class.java]
 
         isLoading()
         isError()
@@ -48,7 +50,11 @@ class TvShowFragment : Fragment() {
             }
         })
 
-        filmAdapter = TvRecyclerAdapter()
+        filmAdapter = TvRecyclerAdapter(context!!){
+            val detail = Intent(context, DetailTvActivity::class.java)
+            detail.putExtra("idtv", it.id)
+            startActivity(detail)
+        }
 
         recyclerViewTv.apply {
             layoutManager = LinearLayoutManager(context)
@@ -85,7 +91,7 @@ class TvShowFragment : Fragment() {
 
     private fun onSwipeRefresh(){
         swipeRefreshTv.setOnRefreshListener {
-            viewModel.setDataFilm(lang)
+            viewModel.setDataTv(lang)
             swipeRefreshTv.isRefreshing = false
         }
     }
