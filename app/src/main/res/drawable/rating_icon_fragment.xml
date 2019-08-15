@@ -3,8 +3,8 @@
 
     <item
         android:drawable="@drawable/ic_star_24dp"
-        android:width="@dimen/item_horizontal_margin"
-        android:height="@dimen/item_horizontal_margin"
+        android:width="@dimen/activity_margin"
+        android:height="@dimen/activity_margin"
         />
 
 </layer-list >

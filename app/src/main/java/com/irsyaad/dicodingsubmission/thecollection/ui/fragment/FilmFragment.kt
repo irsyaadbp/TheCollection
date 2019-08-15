@@ -81,7 +81,7 @@ class FilmFragment : Fragment() {
                 errorFilm.visibility = View.VISIBLE
                 recyclerViewFilm.visibility = View.GONE
                 progressBarFilm.visibility = View.GONE
-                Toast.makeText(context, "Connection Error :(", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "Connection to Server Error :(", Toast.LENGTH_LONG).show()
             }
         })
     }

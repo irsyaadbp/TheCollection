@@ -1,8 +1,6 @@
 package com.irsyaad.dicodingsubmission.thecollection.adapter
 
 import android.content.Context
-import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,17 +34,20 @@ class FilmRecyclerAdapter(private val context: Context, val clickListener: (List
     class DataViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val txtTitle = view.txtTitle
         private val txtDesc = view.txtDescription
+        private val txtRating = view.txtRating
         private val imgPoster = view.imgPoster
 
         fun bind(data: ListDetailFilm, context: Context){
 
             txtTitle.text = data.title
             txtDesc.text = data.overview
+            txtRating.text = "${data.vote_average}"
 
             Glide.with(context)
                     .load("https://image.tmdb.org/t/p/w185${data.poster_path}")
                     .centerCrop()
                     .into(imgPoster)
+
         }
     }
 

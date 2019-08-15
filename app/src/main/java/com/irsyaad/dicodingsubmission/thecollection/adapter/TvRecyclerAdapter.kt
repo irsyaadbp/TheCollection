@@ -33,12 +33,14 @@ class TvRecyclerAdapter(private val context: Context, val clickListener: (ListDe
     class DataViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val txtTitle = view.txtTitle
         private val txtDesc = view.txtDescription
+        private val txtRating = view.txtRating
         private val imgPoster = view.imgPoster
 
         fun bind(data: ListDetailTv, context: Context){
 
             txtTitle.text = data.name
             txtDesc.text = data.overview
+            txtRating.text = "${data.vote_average}"
 
             Glide.with(context)
                     .load("https://image.tmdb.org/t/p/w185${data.poster_path}")
