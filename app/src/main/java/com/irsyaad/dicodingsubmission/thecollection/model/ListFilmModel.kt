@@ -25,7 +25,6 @@ data class DetailFilm (
     @SerializedName("original_language")
     val language: String?,
     val original_title: String?,
-    val genres: List<Genres>,
     val overview: String?,
     val runtime: Int,
     val status: String?,

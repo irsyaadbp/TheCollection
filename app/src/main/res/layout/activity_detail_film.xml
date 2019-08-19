@@ -7,11 +7,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.activity.DetailFilmActivity">
-   <androidx.constraintlayout.widget.ConstraintLayout
-           android:id="@+id/constraintStatus"
-           android:layout_width="match_parent"
-           android:layout_height="match_parent"
-           android:background="@color/colorGreen">
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
       <com.airbnb.lottie.LottieAnimationView
               android:id="@+id/progressBarFilmDetail"
               android:layout_width="300dp"
@@ -23,7 +22,7 @@
               app:lottie_autoPlay="true"
               app:lottie_fileName="loading.json"
               app:lottie_loop="true"
-              app:layout_constraintVertical_bias="0.3"/>
+              android:layout_gravity="center"/>
 
       <com.airbnb.lottie.LottieAnimationView
               android:id="@+id/errorFilmDetail"
@@ -36,20 +35,14 @@
               app:lottie_autoPlay="true"
               app:lottie_fileName="error.json"
               app:lottie_loop="true"
-              app:layout_constraintVertical_bias="0.4"
-              android:visibility="gone"/>
-   </androidx.constraintlayout.widget.ConstraintLayout>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/coordinatorLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        android:background="@color/colorRed">
+              android:visibility="gone"
+              android:layout_gravity="center"/>
    <com.google.android.material.appbar.AppBarLayout
            android:id="@+id/appBar"
            android:layout_width="match_parent"
            android:layout_height="306dp"
-           android:fitsSystemWindows="true">
+           android:fitsSystemWindows="true"
+           android:visibility="gone">
       <com.google.android.material.appbar.CollapsingToolbarLayout
               android:id="@+id/collapsingToolbar"
               android:layout_width="match_parent"
@@ -197,7 +190,8 @@
            android:layout_width="match_parent"
            android:layout_height="match_parent"
            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-           android:background="@color/colorWhite">
+           android:background="@color/colorWhite"
+           android:visibility="gone">
 
       <androidx.constraintlayout.widget.ConstraintLayout
               android:layout_width="match_parent"

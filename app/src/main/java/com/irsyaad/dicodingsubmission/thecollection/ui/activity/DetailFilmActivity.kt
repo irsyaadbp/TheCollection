@@ -1,5 +1,6 @@
 package com.irsyaad.dicodingsubmission.thecollection.ui.activity
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -33,14 +34,14 @@ class DetailFilmActivity : AppCompatActivity() {
 
         viewModel = ViewModelProviders.of(this, ViewModelFactory().viewModelFactory{ DetailDataViewModel(lang, id) })[DetailDataViewModel::class.java]
         viewModel.getDetailFilm().observe(this, Observer {result ->
+            viewModel.showLoading.value = false
+
             if (result != null){
 
                 setAppBar(result)
                 setLayout(result)
 
-                viewModel.showLoading.value = false
             } else{
-                viewModel.showLoading.value = false
                 viewModel.isError.value = true
             }
         })
@@ -91,18 +92,22 @@ class DetailFilmActivity : AppCompatActivity() {
                 toolbar.setNavigationIcon(R.drawable.ic_back_black_24dp)
             }
         })
+
+        toolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
     }
 
     private fun isLoading(){
         viewModel.showLoading.observe(this, Observer {status ->
             if(status){
-                coordinatorLayout.visibility = View.GONE
-                constraintStatus.visibility = View.VISIBLE
+                appBar.visibility = View.GONE
+                nestedScroll.visibility = View.GONE
                 progressBarFilmDetail.visibility = View.VISIBLE
             }else{
-                constraintStatus.visibility = View.GONE
                 progressBarFilmDetail.visibility = View.GONE
-                coordinatorLayout.visibility = View.VISIBLE
+                appBar.visibility = View.VISIBLE
+                nestedScroll.visibility = View.VISIBLE
             }
         })
     }
@@ -110,8 +115,8 @@ class DetailFilmActivity : AppCompatActivity() {
     private fun isError(){
         viewModel.isError.observe(this, Observer { status ->
             if(status){
-                coordinatorLayout.visibility = View.GONE
-                constraintStatus.visibility = View.VISIBLE
+                appBar.visibility = View.GONE
+                nestedScroll.visibility = View.GONE
                 progressBarFilmDetail.visibility = View.GONE
                 errorFilmDetail.visibility = View.VISIBLE
                 Toast.makeText(this, "Connection to Server Error :(", Toast.LENGTH_LONG).show()

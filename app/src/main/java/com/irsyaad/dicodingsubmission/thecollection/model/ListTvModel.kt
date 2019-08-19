@@ -25,8 +25,8 @@ data class DetailTv(
     @SerializedName("original_language")
     val language: String?,
     val original_name: String?,
-    val genres: List<Genres>,
     val overview: String?,
     val runtime: Int,
-    val status: String?
+    val status: String?,
+    val adult: Boolean
 )

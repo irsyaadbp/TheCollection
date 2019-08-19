@@ -1,6 +1,7 @@
 package com.irsyaad.dicodingsubmission.thecollection.viewmodel
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -27,12 +28,13 @@ class DetailDataViewModel(private val lang: String, private val id:Int) : ViewMo
     }
 
     fun getDetailTv(): LiveData<DetailTv>{
-        if(detailFilm.value == null) setDetailTv(lang, id)
+        if(detailTvShow.value == null) setDetailTv(lang, id)
         return detailTvShow
     }
 
     fun setDetailFilm(lang: String, id: Int){
         showLoading.postValue(true)
+
         service.getDetailFilm(id, API_KEY, lang).enqueue(object : Callback<DetailFilm>{
             override fun onResponse(call: Call<DetailFilm>, response: Response<DetailFilm>) {
                 showLoading.postValue(false)
