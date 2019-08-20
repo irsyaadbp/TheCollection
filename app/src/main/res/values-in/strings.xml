@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   <string name="title">Judul</string>
+   <string name="image_description">Daftar Gambar</string>
+   <string name="view_detail">Lihat Detail</string>
+   <string name="overview">Ringkasan</string>
+   <string name="original_language">Bahasa Asli</string>
+   <string name="runtime">Waktu</string>
+   <string name="original_title">Judul Asli</string>
+   <string name="status">Status</string>
+   <string name="adult">Dewasa</string>
+   <string name="not_adult">Tidak Dewasa</string>
+   <string name="setting">pengaturan</string>
+   <string name="language">Bahasa</string>
+   <string name="english">English</string>
+   <string name="indonesian">Bahasa Indonesia</string>
+</resources>

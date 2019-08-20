@@ -1,17 +1,14 @@
 <resources>
-   <string name="app_name">The Collection</string>
+   <string name="app_name" translatable="false">The Collection</string>
    <string name="title">Title</string>
-   <string name="rating">8.4</string>
+   <string name="rating" translatable="false">8.4</string>
    <string name="image_description">Image List</string>
    <string name="view_detail">View Detail</string>
-   <string name="genres">Genres</string>
    <string name="overview">Overview</string>
-   <string name="directors">Directors</string>
    <string name="original_language">Original Language</string>
    <string name="runtime">Runtime</string>
    <string name="original_title">Original Title</string>
    <string name="status">Status</string>
-   <string name="votes">votes</string>
    <string name="adult">Adult</string>
    <string name="not_adult">Not Adult</string>
    <string name="setting">Setting</string>
