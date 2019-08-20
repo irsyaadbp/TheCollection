@@ -14,4 +14,6 @@
    <string name="language">Bahasa</string>
    <string name="english">English</string>
    <string name="indonesian">Bahasa Indonesia</string>
+   <string name="movie">Film</string>
+   <string name="tvshow">Acara TV</string>
 </resources>

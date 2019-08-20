@@ -16,7 +16,7 @@
            app:layout_constraintEnd_toEndOf="parent"/>
 
    <RadioGroup
-           android:id="@+id/radio_group"
+           android:id="@+id/radioGroup"
            android:layout_width="0dp"
            android:layout_height="wrap_content"
            android:layout_marginTop="16dp"
@@ -27,14 +27,14 @@
            android:paddingLeft="@dimen/activity_margin">
 
       <androidx.appcompat.widget.AppCompatRadioButton
-              android:id="@+id/radio_english"
+              android:id="@+id/radioEnglish"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:text="@string/english"
               android:buttonTint="@color/colorPrimaryDark"/>
 
       <androidx.appcompat.widget.AppCompatRadioButton
-              android:id="@+id/radio_indonesian"
+              android:id="@+id/radioIndonesian"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:text="@string/indonesian"

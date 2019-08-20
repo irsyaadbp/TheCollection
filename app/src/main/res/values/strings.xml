@@ -15,4 +15,6 @@
    <string name="language">Language</string>
    <string name="english">English</string>
    <string name="indonesian">Bahasa Indonesia</string>
+   <string name="movie">Movie</string>
+   <string name="tvshow">TV Show</string>
 </resources>
