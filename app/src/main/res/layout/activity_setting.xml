@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:context=".ui.activity.setting.SettingActivity"
+        android:orientation="vertical"
+        android:background="@color/colorAccent">
+   <androidx.appcompat.widget.Toolbar
+           android:id="@+id/toolbar"
+           android:layout_width="match_parent"
+           android:layout_height="?attr/actionBarSize"
+           app:layout_scrollFlags="scroll|enterAlways|snap"
+           app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+           android:background="@color/colorWhite"/>
+   <TextView
+           android:id="@+id/settingLanguage"
+           android:layout_marginTop="@dimen/item_margin"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:text="@string/language"
+           android:textAlignment="viewStart"
+           android:background="@color/colorWhite"
+           android:padding="@dimen/activity_margin"/>
+</LinearLayout>

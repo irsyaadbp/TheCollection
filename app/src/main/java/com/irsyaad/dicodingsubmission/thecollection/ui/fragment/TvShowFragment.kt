@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.irsyaad.dicodingsubmission.thecollection.R
 import com.irsyaad.dicodingsubmission.thecollection.adapter.TvRecyclerAdapter
-import com.irsyaad.dicodingsubmission.thecollection.ui.activity.DetailTvActivity
+import com.irsyaad.dicodingsubmission.thecollection.ui.activity.detail.DetailTvActivity
 import com.irsyaad.dicodingsubmission.thecollection.viewmodel.ListDataViewModel
 import com.irsyaad.dicodingsubmission.thecollection.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_tv_show.*

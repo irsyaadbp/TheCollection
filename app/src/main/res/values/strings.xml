@@ -1,7 +1,5 @@
 <resources>
    <string name="app_name">The Collection</string>
-
-   <!-- TODO: Remove or change this placeholder text -->
    <string name="title">Title</string>
    <string name="rating">8.4</string>
    <string name="image_description">Image List</string>
@@ -16,4 +14,8 @@
    <string name="votes">votes</string>
    <string name="adult">Adult</string>
    <string name="not_adult">Not Adult</string>
+   <string name="setting">Setting</string>
+   <string name="language">Language</string>
+   <string name="english">English</string>
+   <string name="indonesian">Bahasa Indonesia</string>
 </resources>

@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.irsyaad.dicodingsubmission.thecollection.R
 import com.irsyaad.dicodingsubmission.thecollection.adapter.FilmRecyclerAdapter
-import com.irsyaad.dicodingsubmission.thecollection.ui.activity.DetailFilmActivity
+import com.irsyaad.dicodingsubmission.thecollection.ui.activity.detail.DetailFilmActivity
 import com.irsyaad.dicodingsubmission.thecollection.viewmodel.ListDataViewModel
 import com.irsyaad.dicodingsubmission.thecollection.viewmodel.ViewModelFactory
 
