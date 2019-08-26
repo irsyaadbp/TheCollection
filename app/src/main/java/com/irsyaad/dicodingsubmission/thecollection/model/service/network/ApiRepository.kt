@@ -1,11 +1,11 @@
-package com.irsyaad.dicodingsubmission.thecollection.model.service
+package com.irsyaad.dicodingsubmission.thecollection.model.service.network
 
 import com.irsyaad.dicodingsubmission.thecollection.BuildConfig.API_URL
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiRepository {
-    fun getData(): ApiService{
+    fun getData(): ApiService {
         val retrofit = Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl(API_URL)

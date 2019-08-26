@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.irsyaad.dicodingsubmission.thecollection.BuildConfig.API_KEY
 import com.irsyaad.dicodingsubmission.thecollection.model.DetailFilm
 import com.irsyaad.dicodingsubmission.thecollection.model.DetailTv
-import com.irsyaad.dicodingsubmission.thecollection.model.service.ApiRepository
+import com.irsyaad.dicodingsubmission.thecollection.model.service.network.ApiRepository
 import retrofit2.Callback
 import retrofit2.Call
 import retrofit2.Response

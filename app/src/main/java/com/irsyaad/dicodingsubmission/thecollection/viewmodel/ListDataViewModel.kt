@@ -8,7 +8,7 @@ import com.irsyaad.dicodingsubmission.thecollection.model.ListFilmModel
 import com.irsyaad.dicodingsubmission.thecollection.model.ListDetailFilm
 import com.irsyaad.dicodingsubmission.thecollection.model.ListDetailTv
 import com.irsyaad.dicodingsubmission.thecollection.model.ListTvModel
-import com.irsyaad.dicodingsubmission.thecollection.model.service.ApiRepository
+import com.irsyaad.dicodingsubmission.thecollection.model.service.network.ApiRepository
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

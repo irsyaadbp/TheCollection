@@ -1,4 +1,4 @@
-package com.irsyaad.dicodingsubmission.thecollection.model.service
+package com.irsyaad.dicodingsubmission.thecollection.model.service.network
 
 import com.irsyaad.dicodingsubmission.thecollection.model.DetailFilm
 import com.irsyaad.dicodingsubmission.thecollection.model.DetailTv
