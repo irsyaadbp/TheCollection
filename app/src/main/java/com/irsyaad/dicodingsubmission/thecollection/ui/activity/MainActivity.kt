@@ -40,10 +40,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        val menu = Intent(this,  SettingActivity::class.java)
-        startActivity(menu)
-        finish()
-        return super.onOptionsItemSelected(item)
+        return when(item!!.itemId) {
+            R.id.om_setting -> {
+                val menu = Intent(this, SettingActivity::class.java)
+                startActivity(menu)
+                finish()
+                return true
+            }
+            R.id.om_favorite -> {
+                val fav = Intent(this, FavoriteActivity::class.java)
+                startActivity(fav)
+                return true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     override fun onResume() {

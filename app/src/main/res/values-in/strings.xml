@@ -16,4 +16,5 @@
    <string name="indonesian">Bahasa Indonesia</string>
    <string name="movie">Film</string>
    <string name="tvshow">Acara TV</string>
+   <string name="favorite">Favorit</string>
 </resources>
