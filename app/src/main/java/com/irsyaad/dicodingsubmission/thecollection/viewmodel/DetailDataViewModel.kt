@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModel
 import com.irsyaad.dicodingsubmission.thecollection.BuildConfig.API_KEY
 import com.irsyaad.dicodingsubmission.thecollection.model.DetailFilm
 import com.irsyaad.dicodingsubmission.thecollection.model.DetailTv
+import com.irsyaad.dicodingsubmission.thecollection.model.FavoriteModel
+import com.irsyaad.dicodingsubmission.thecollection.model.service.local.FavoriteRepository
 import com.irsyaad.dicodingsubmission.thecollection.model.service.network.ApiRepository
 import retrofit2.Callback
 import retrofit2.Call
@@ -14,13 +16,14 @@ import retrofit2.Response
 
 class DetailDataViewModel(private val lang: String, private val id:Int) : ViewModel() {
     private val service = ApiRepository.getData()
+    private val repository = FavoriteRepository()
 
     private val detailFilm: MutableLiveData<DetailFilm> = MutableLiveData()
     private val detailTvShow: MutableLiveData<DetailTv> = MutableLiveData()
 
     var showLoading: MutableLiveData<Boolean> = MutableLiveData()
     var isError: MutableLiveData<Boolean> = MutableLiveData()
-    val isFavorite: MutableLiveData<Boolean> = MutableLiveData()
+    var isFavorite:MutableLiveData<Boolean> = MutableLiveData()
 
     fun getDetailFilm(): LiveData<DetailFilm>{
         if(detailFilm.value == null) setDetailFilm(lang, id)
@@ -32,7 +35,7 @@ class DetailDataViewModel(private val lang: String, private val id:Int) : ViewMo
         return detailTvShow
     }
 
-    private fun setDetailFilm(lang: String, id: Int){
+    fun setDetailFilm(lang: String, id: Int){
         showLoading.postValue(true)
 
         service.getDetailFilm(id, API_KEY, lang).enqueue(object : Callback<DetailFilm>{
@@ -77,6 +80,15 @@ class DetailDataViewModel(private val lang: String, private val id:Int) : ViewMo
             }
 
         })
+    }
 
+    fun setFavorite(fav: FavoriteModel){
+        val idData: Int = fav.idData
+        val type: String = fav.type
+
+        if(repository.checkData(idData, type) == 0) {
+            //TODO insert data
+            isFavorite.value = true
+        }
     }
 }

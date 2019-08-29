@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide
 import com.google.android.material.appbar.AppBarLayout
 import com.irsyaad.dicodingsubmission.thecollection.R
 import com.irsyaad.dicodingsubmission.thecollection.model.DetailFilm
-import com.irsyaad.dicodingsubmission.thecollection.model.Favorite
+import com.irsyaad.dicodingsubmission.thecollection.model.FavoriteModel
 import com.irsyaad.dicodingsubmission.thecollection.viewmodel.DetailDataViewModel
 import com.irsyaad.dicodingsubmission.thecollection.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.activity_detail_film.*
@@ -137,6 +137,7 @@ class DetailFilmActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         return when(item!!.itemId){
             R.id.om_favorite -> {
+//                favorite = !favorite
                 viewModel.isFavorite.value = !favorite
                 true
             }
@@ -147,19 +148,24 @@ class DetailFilmActivity : AppCompatActivity() {
 
     private fun isFavorite(){
         viewModel.isFavorite.observe(this, Observer {status ->
-            favorite = status
-            appBar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { _, i ->
 
-                when {
-                    status -> menu.getItem(0).icon = getDrawable(R.drawable.ic_favorite_pink_24dp)
-                    else -> {
+            when {
+                status -> {
+                    menu.getItem(0).icon = getDrawable(R.drawable.ic_favorite_pink_24dp)
+                    Toast.makeText(this, "cliked 1 $favorite dan $status", Toast.LENGTH_SHORT).show()
+                    favorite = true
+                    Toast.makeText(this, "cliked 2 $favorite dan $status", Toast.LENGTH_LONG).show()
+                }
+                else -> {
+                    Toast.makeText(this, "cliked 1 $favorite dan $status", Toast.LENGTH_SHORT).show()
+                    favorite = false
+                    Toast.makeText(this, "cliked 2 $favorite dan $status", Toast.LENGTH_LONG).show()
+                    appBar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { _, i ->
                         if (i > -500) menu.getItem(0).icon = getDrawable(R.drawable.ic_favorite_border_white_24dp)
                         else menu.getItem(0).icon = getDrawable(R.drawable.ic_favorite_border_black_24dp)
-                    }
+                    })
                 }
-
-            })
-
+            }
         })
     }
 }
