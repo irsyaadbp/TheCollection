@@ -20,6 +20,7 @@ class DetailDataViewModel(private val lang: String, private val id:Int) : ViewMo
 
     var showLoading: MutableLiveData<Boolean> = MutableLiveData()
     var isError: MutableLiveData<Boolean> = MutableLiveData()
+    val isFavorite: MutableLiveData<Boolean> = MutableLiveData()
 
     fun getDetailFilm(): LiveData<DetailFilm>{
         if(detailFilm.value == null) setDetailFilm(lang, id)
@@ -31,7 +32,7 @@ class DetailDataViewModel(private val lang: String, private val id:Int) : ViewMo
         return detailTvShow
     }
 
-    fun setDetailFilm(lang: String, id: Int){
+    private fun setDetailFilm(lang: String, id: Int){
         showLoading.postValue(true)
 
         service.getDetailFilm(id, API_KEY, lang).enqueue(object : Callback<DetailFilm>{

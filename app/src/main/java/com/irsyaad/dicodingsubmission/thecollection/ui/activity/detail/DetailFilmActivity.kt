@@ -2,6 +2,8 @@ package com.irsyaad.dicodingsubmission.thecollection.ui.activity.detail
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
@@ -10,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.google.android.material.appbar.AppBarLayout
 import com.irsyaad.dicodingsubmission.thecollection.R
 import com.irsyaad.dicodingsubmission.thecollection.model.DetailFilm
+import com.irsyaad.dicodingsubmission.thecollection.model.Favorite
 import com.irsyaad.dicodingsubmission.thecollection.viewmodel.DetailDataViewModel
 import com.irsyaad.dicodingsubmission.thecollection.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.activity_detail_film.*
@@ -19,6 +22,8 @@ class DetailFilmActivity : AppCompatActivity() {
     private lateinit var viewModel: DetailDataViewModel
     private lateinit var lang: String
 
+    private var favorite: Boolean = false
+    private lateinit var menu: Menu
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,11 +46,11 @@ class DetailFilmActivity : AppCompatActivity() {
             }
         })
 
+        isFavorite()
         isLoading()
         isError()
 
         setSupportActionBar(toolbar)
-        onSwipeRefresh(lang, id)
     }
 
     private fun setLayout(result: DetailFilm){
@@ -82,9 +87,11 @@ class DetailFilmActivity : AppCompatActivity() {
             if (i > -500) {
                 collapsingToolbar.title = ""
                 toolbar.setNavigationIcon(R.drawable.ic_back_white_24dp)
+//                menu.getItem(0).icon = getDrawable(R.drawable.ic_favorite_border_white_24dp)
             } else {
                 collapsingToolbar.title = result.title
                 toolbar.setNavigationIcon(R.drawable.ic_back_black_24dp)
+//                menu.getItem(0).icon = getDrawable(R.drawable.ic_favorite_border_black_24dp)
             }
         })
 
@@ -119,10 +126,40 @@ class DetailFilmActivity : AppCompatActivity() {
         })
     }
 
-    private fun onSwipeRefresh(lang: String, id: Int){
-        swipeRefreshFilm.setOnRefreshListener {
-            viewModel.setDetailFilm(lang, id)
-            swipeRefreshFilm.isRefreshing = false
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        this.menu = menu
+        val inflater = menuInflater
+        inflater.inflate(R.menu.favorite_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return when(item!!.itemId){
+            R.id.om_favorite -> {
+                viewModel.isFavorite.value = !favorite
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
+
+    }
+
+    private fun isFavorite(){
+        viewModel.isFavorite.observe(this, Observer {status ->
+            favorite = status
+            appBar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { _, i ->
+
+                when {
+                    status -> menu.getItem(0).icon = getDrawable(R.drawable.ic_favorite_pink_24dp)
+                    else -> {
+                        if (i > -500) menu.getItem(0).icon = getDrawable(R.drawable.ic_favorite_border_white_24dp)
+                        else menu.getItem(0).icon = getDrawable(R.drawable.ic_favorite_border_black_24dp)
+                    }
+                }
+
+            })
+
+        })
     }
 }

@@ -1,4 +1,4 @@
-package com.irsyaad.dicodingsubmission.thecollection.model.service.local
+package com.irsyaad.dicodingsubmission.thecollection.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
