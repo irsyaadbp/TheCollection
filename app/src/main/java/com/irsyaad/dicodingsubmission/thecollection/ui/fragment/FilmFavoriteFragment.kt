@@ -1,5 +1,6 @@
 package com.irsyaad.dicodingsubmission.thecollection.ui.fragment
 
+
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,51 +13,53 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.irsyaad.dicodingsubmission.thecollection.R
-import com.irsyaad.dicodingsubmission.thecollection.adapter.FilmRecyclerAdapter
+import com.irsyaad.dicodingsubmission.thecollection.adapter.FavoriteRecyclerAdapter
 import com.irsyaad.dicodingsubmission.thecollection.ui.activity.detail.DetailFilmActivity
 import com.irsyaad.dicodingsubmission.thecollection.viewmodel.ListDataViewModel
 import com.irsyaad.dicodingsubmission.thecollection.viewmodel.ViewModelFactory
+import kotlinx.android.synthetic.main.fragment_film_favorite.*
 
-import kotlinx.android.synthetic.main.fragment_film.*
-
-class FilmFragment : Fragment() {
+/**
+ * A simple [Fragment] subclass.
+ */
+class FilmFavoriteFragment : Fragment() {
 
     private lateinit var viewModel: ListDataViewModel
-    private lateinit var lang: String
-    private lateinit var filmAdapter: FilmRecyclerAdapter
+    private lateinit var favAdapter: FavoriteRecyclerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_film, container, false)
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_film_favorite, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        lang = "en-Us"
 
-        viewModel = ViewModelProviders.of(this, ViewModelFactory().viewModelFactory{ ListDataViewModel(context!!,lang)})[ListDataViewModel::class.java]
+        viewModel = ViewModelProviders.of(this, ViewModelFactory().viewModelFactory{ ListDataViewModel(context!!,"film")})[ListDataViewModel::class.java]
         isLoading()
         isError()
-        viewModel.getDataFilm().observe(this, Observer { result ->
+        viewModel.getDataFavorite().observe(this, Observer {result ->
             if(result != null){
-                filmAdapter.setData(result)
+                favAdapter.setData(result)
             }else{
                 viewModel.isError.value = true
             }
         })
 
-        filmAdapter = FilmRecyclerAdapter(context!!){
+        favAdapter = FavoriteRecyclerAdapter(context!!){
             val detail = Intent(context, DetailFilmActivity::class.java)
-            detail.putExtra("idfilm", it.id)
+            detail.putExtra("idfilm", it.idData)
             startActivity(detail)
         }
 
         recyclerViewFilm.apply {
             layoutManager = LinearLayoutManager(context)
-            adapter = filmAdapter
+            adapter = favAdapter
         }
+
         onSwipeRefresh()
 
     }
@@ -88,8 +91,9 @@ class FilmFragment : Fragment() {
 
     private fun onSwipeRefresh(){
         swipeRefreshFilm.setOnRefreshListener {
-            viewModel.setDataFilm(lang)
+            viewModel.setListDataFavorite("film")
             swipeRefreshFilm.isRefreshing = false
         }
     }
+
 }

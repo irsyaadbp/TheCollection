@@ -12,6 +12,12 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas".toString())
+            }
+        }
     }
     buildTypes {
         debug {
@@ -54,6 +60,8 @@ dependencies {
     implementation "androidx.room:room-runtime:2.2.0-beta01"
     kapt "androidx.room:room-compiler:2.2.0-beta01"
     implementation 'android.arch.persistence.room:rxjava2:1.1.1'
+    implementation "io.reactivex.rxjava2:rxjava:2.0.6"
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
 
     implementation "com.squareup.retrofit2:retrofit:2.6.1"
     implementation "com.squareup.retrofit2:converter-gson:2.6.1"
@@ -63,4 +71,6 @@ dependencies {
 
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+
+    implementation 'com.facebook.stetho:stetho:1.5.1'
 }

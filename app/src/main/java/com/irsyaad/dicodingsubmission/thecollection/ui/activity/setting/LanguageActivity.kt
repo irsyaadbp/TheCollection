@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.irsyaad.dicodingsubmission.thecollection.R
 import kotlinx.android.synthetic.main.activity_language.*
 import java.util.*
@@ -31,7 +32,7 @@ class LanguageActivity : AppCompatActivity() {
         defaultLanguage = Locale.getDefault().displayLanguage
         val language = languagePref!!.getString("language", "" + defaultLanguage)!!
 
-        if (language == "en" || language == "English") {
+        if (language == "en" || language == "English" || language == "english") {
             radioEnglish.isChecked = true
         } else {
             radioIndonesian.isChecked = true

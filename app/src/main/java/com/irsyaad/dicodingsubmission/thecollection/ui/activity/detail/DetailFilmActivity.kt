@@ -22,6 +22,8 @@ class DetailFilmActivity : AppCompatActivity() {
     private lateinit var viewModel: DetailDataViewModel
     private lateinit var lang: String
 
+    private lateinit var data: DetailFilm
+
     private var favorite: Boolean = false
     private lateinit var menu: Menu
 
@@ -32,7 +34,7 @@ class DetailFilmActivity : AppCompatActivity() {
         lang = "en-Us"
         val id: Int = intent.getIntExtra("idfilm", 0)
 
-        viewModel = ViewModelProviders.of(this, ViewModelFactory().viewModelFactory{ DetailDataViewModel(lang, id) })[DetailDataViewModel::class.java]
+        viewModel = ViewModelProviders.of(this, ViewModelFactory().viewModelFactory{ DetailDataViewModel(this,lang, id) })[DetailDataViewModel::class.java]
         viewModel.getDetailFilm().observe(this, Observer {result ->
             viewModel.showLoading.value = false
 
@@ -41,12 +43,14 @@ class DetailFilmActivity : AppCompatActivity() {
                 setAppBar(result)
                 setLayout(result)
 
+                data = result
+
+                viewModel.checkFavorite(result.id, "film")
+
             } else{
                 viewModel.isError.value = true
             }
         })
-
-        isFavorite()
         isLoading()
         isError()
 
@@ -87,11 +91,9 @@ class DetailFilmActivity : AppCompatActivity() {
             if (i > -500) {
                 collapsingToolbar.title = ""
                 toolbar.setNavigationIcon(R.drawable.ic_back_white_24dp)
-//                menu.getItem(0).icon = getDrawable(R.drawable.ic_favorite_border_white_24dp)
             } else {
                 collapsingToolbar.title = result.title
                 toolbar.setNavigationIcon(R.drawable.ic_back_black_24dp)
-//                menu.getItem(0).icon = getDrawable(R.drawable.ic_favorite_border_black_24dp)
             }
         })
 
@@ -131,14 +133,21 @@ class DetailFilmActivity : AppCompatActivity() {
         this.menu = menu
         val inflater = menuInflater
         inflater.inflate(R.menu.favorite_menu, menu)
+        isFavorite()
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         return when(item!!.itemId){
             R.id.om_favorite -> {
-//                favorite = !favorite
                 viewModel.isFavorite.value = !favorite
+                if (favorite) {
+                    viewModel.setFavorite(FavoriteModel(data.id, data.title.toString(), data.overview.toString(), data.vote_average.toString(), data.poster_path.toString(),"film"))
+                    Toast.makeText(this, getString(R.string.favorite), Toast.LENGTH_SHORT).show()
+                } else {
+                    viewModel.deleteFavorite(data.id, "film")
+                    Toast.makeText(this, getString(R.string.remove_favorite), Toast.LENGTH_SHORT).show()
+                }
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -148,24 +157,16 @@ class DetailFilmActivity : AppCompatActivity() {
 
     private fun isFavorite(){
         viewModel.isFavorite.observe(this, Observer {status ->
-
-            when {
-                status -> {
-                    menu.getItem(0).icon = getDrawable(R.drawable.ic_favorite_pink_24dp)
-                    Toast.makeText(this, "cliked 1 $favorite dan $status", Toast.LENGTH_SHORT).show()
-                    favorite = true
-                    Toast.makeText(this, "cliked 2 $favorite dan $status", Toast.LENGTH_LONG).show()
-                }
-                else -> {
-                    Toast.makeText(this, "cliked 1 $favorite dan $status", Toast.LENGTH_SHORT).show()
-                    favorite = false
-                    Toast.makeText(this, "cliked 2 $favorite dan $status", Toast.LENGTH_LONG).show()
-                    appBar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { _, i ->
+            favorite = status
+            appBar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { _, i ->
+                when {
+                    favorite -> menu.getItem(0).icon = getDrawable(R.drawable.ic_favorite_pink_24dp)
+                    else -> {
                         if (i > -500) menu.getItem(0).icon = getDrawable(R.drawable.ic_favorite_border_white_24dp)
                         else menu.getItem(0).icon = getDrawable(R.drawable.ic_favorite_border_black_24dp)
-                    })
+                    }
                 }
-            }
+            })
         })
     }
 }

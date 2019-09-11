@@ -18,4 +18,9 @@
    <string name="movie">Movie</string>
    <string name="tvshow">TV Show</string>
    <string name="favorite">Favorite</string>
+   <string name="remove_favorite">Remove from favorite</string>
+
+   <!-- TODO: Remove or change this placeholder text -->
+   <string name="hello_blank_fragment">Hello blank fragment</string>
+   <string name="fav_not_found">Favorite not found</string>
 </resources>

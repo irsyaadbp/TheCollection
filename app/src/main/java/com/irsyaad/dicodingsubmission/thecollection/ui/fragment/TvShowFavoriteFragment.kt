@@ -13,52 +13,51 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.irsyaad.dicodingsubmission.thecollection.R
-import com.irsyaad.dicodingsubmission.thecollection.adapter.TvRecyclerAdapter
+import com.irsyaad.dicodingsubmission.thecollection.adapter.FavoriteRecyclerAdapter
 import com.irsyaad.dicodingsubmission.thecollection.ui.activity.detail.DetailTvActivity
 import com.irsyaad.dicodingsubmission.thecollection.viewmodel.ListDataViewModel
 import com.irsyaad.dicodingsubmission.thecollection.viewmodel.ViewModelFactory
-import kotlinx.android.synthetic.main.fragment_tv_show.*
+import kotlinx.android.synthetic.main.fragment_tv_show_favorite.*
 
-class TvShowFragment : Fragment() {
+/**
+ * A simple [Fragment] subclass.
+ */
+class TvShowFavoriteFragment : Fragment() {
 
     private lateinit var viewModel: ListDataViewModel
-    private lateinit var lang: String
-    private lateinit var filmAdapter: TvRecyclerAdapter
+    private lateinit var favAdapter: FavoriteRecyclerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_tv_show, container, false)
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_tv_show_favorite, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        lang = "en-Us"
-
-        viewModel = ViewModelProviders.of(this, ViewModelFactory().viewModelFactory{ ListDataViewModel(context!!, lang)})[ListDataViewModel::class.java]
-
+        viewModel = ViewModelProviders.of(this, ViewModelFactory().viewModelFactory{ ListDataViewModel(context!!,"tv")})[ListDataViewModel::class.java]
         isLoading()
         isError()
-
-        viewModel.getDataTv().observe(this, Observer { result ->
+        viewModel.getDataFavorite().observe(this, Observer {result ->
             if(result != null){
-                filmAdapter.setData(result)
+                favAdapter.setData(result)
             }else{
                 viewModel.isError.value = true
             }
         })
 
-        filmAdapter = TvRecyclerAdapter(context!!){
+        favAdapter = FavoriteRecyclerAdapter(context!!){
             val detail = Intent(context, DetailTvActivity::class.java)
-            detail.putExtra("idTv", it.id)
+            detail.putExtra("idTv", it.idData)
             startActivity(detail)
         }
 
         recyclerViewTv.apply {
             layoutManager = LinearLayoutManager(context)
-            adapter = filmAdapter
+            adapter = favAdapter
         }
 
         onSwipeRefresh()
@@ -84,16 +83,15 @@ class TvShowFragment : Fragment() {
                 errorTv.visibility = View.VISIBLE
                 recyclerViewTv.visibility = View.GONE
                 progressBarTv.visibility = View.GONE
-                Toast.makeText(context, "Connection Error :(", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "Connection to Server Error :(", Toast.LENGTH_LONG).show()
             }
         })
     }
 
     private fun onSwipeRefresh(){
         swipeRefreshTv.setOnRefreshListener {
-            viewModel.setDataTv(lang)
+            viewModel.setListDataFavorite("tv")
             swipeRefreshTv.isRefreshing = false
         }
     }
-
 }

@@ -16,5 +16,7 @@
    <string name="indonesian">Bahasa Indonesia</string>
    <string name="movie">Film</string>
    <string name="tvshow">Acara TV</string>
-   <string name="favorite">Favorit</string>
+   <string name="favorite">Disukai</string>
+   <string name="remove_favorite">Dihapus dari disukai</string>
+   <string name="fav_not_found">Tidak ada yang disukai</string>
 </resources>

@@ -12,11 +12,11 @@ interface LocalService {
     fun getFavorite(type: String): List<FavoriteModel>
 
     @Query("SELECT COUNT(*) FROM favorite WHERE id_data = :idData AND type = :type")
-    fun getFavoriteById(idData: Int, type: String) : Int
+    fun checkFavoriteById(idData: Int, type: String) : Int
 
     @Insert
     fun insert(fav: FavoriteModel)
 
-    @Delete
-    fun deleteFavorite(fav: FavoriteModel)
+    @Query("DELETE FROM favorite WHERE id_data = :idData AND type = :type")
+    fun deleteFavorite(idData:Int, type: String)
 }

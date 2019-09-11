@@ -5,10 +5,17 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.irsyaad.dicodingsubmission.thecollection.R
+import com.irsyaad.dicodingsubmission.thecollection.ui.fragment.FilmFavoriteFragment
 import com.irsyaad.dicodingsubmission.thecollection.ui.fragment.FilmFragment
+import com.irsyaad.dicodingsubmission.thecollection.ui.fragment.TvShowFavoriteFragment
 import com.irsyaad.dicodingsubmission.thecollection.ui.fragment.TvShowFragment
 
-class ViewPagerAdapter(private val context : Context, fragmentManager : FragmentManager) : FragmentPagerAdapter(fragmentManager) {
+class ViewPagerAdapter(private val context : Context, fragmentManager : FragmentManager, private val from : String) : FragmentPagerAdapter(fragmentManager) {
+
+    private val pagesFavorite = listOf(
+        FilmFavoriteFragment(),
+        TvShowFavoriteFragment()
+    )
 
     private val pages = listOf(
         FilmFragment(),
@@ -16,11 +23,13 @@ class ViewPagerAdapter(private val context : Context, fragmentManager : Fragment
     )
 
     override fun getItem(position: Int): Fragment {
-        return pages[position]
+        return if (from == "main") pages[position]
+        else pagesFavorite[position]
     }
 
     override fun getCount(): Int {
-        return pages.size
+        return if (from == "main") pages.size
+        else pagesFavorite.size
     }
 
     override fun getPageTitle(position: Int): CharSequence? {

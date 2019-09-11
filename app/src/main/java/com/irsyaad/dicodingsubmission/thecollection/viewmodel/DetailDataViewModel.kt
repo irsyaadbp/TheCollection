@@ -1,5 +1,6 @@
 package com.irsyaad.dicodingsubmission.thecollection.viewmodel
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,15 +9,20 @@ import com.irsyaad.dicodingsubmission.thecollection.BuildConfig.API_KEY
 import com.irsyaad.dicodingsubmission.thecollection.model.DetailFilm
 import com.irsyaad.dicodingsubmission.thecollection.model.DetailTv
 import com.irsyaad.dicodingsubmission.thecollection.model.FavoriteModel
-import com.irsyaad.dicodingsubmission.thecollection.model.service.local.FavoriteRepository
+import com.irsyaad.dicodingsubmission.thecollection.model.service.local.FavoriteDatabase
 import com.irsyaad.dicodingsubmission.thecollection.model.service.network.ApiRepository
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import retrofit2.Callback
 import retrofit2.Call
 import retrofit2.Response
 
-class DetailDataViewModel(private val lang: String, private val id:Int) : ViewModel() {
+class DetailDataViewModel(context: Context, private val lang: String, private val id:Int) : ViewModel() {
     private val service = ApiRepository.getData()
-    private val repository = FavoriteRepository()
+    private var favoriteDatabase: FavoriteDatabase? = null
+    private var disposable: CompositeDisposable? = null
 
     private val detailFilm: MutableLiveData<DetailFilm> = MutableLiveData()
     private val detailTvShow: MutableLiveData<DetailTv> = MutableLiveData()
@@ -24,6 +30,11 @@ class DetailDataViewModel(private val lang: String, private val id:Int) : ViewMo
     var showLoading: MutableLiveData<Boolean> = MutableLiveData()
     var isError: MutableLiveData<Boolean> = MutableLiveData()
     var isFavorite:MutableLiveData<Boolean> = MutableLiveData()
+
+    init {
+        favoriteDatabase = FavoriteDatabase.getInstance(context)
+        disposable = CompositeDisposable()
+    }
 
     fun getDetailFilm(): LiveData<DetailFilm>{
         if(detailFilm.value == null) setDetailFilm(lang, id)
@@ -35,7 +46,7 @@ class DetailDataViewModel(private val lang: String, private val id:Int) : ViewMo
         return detailTvShow
     }
 
-    fun setDetailFilm(lang: String, id: Int){
+    private fun setDetailFilm(lang: String, id: Int){
         showLoading.postValue(true)
 
         service.getDetailFilm(id, API_KEY, lang).enqueue(object : Callback<DetailFilm>{
@@ -59,7 +70,7 @@ class DetailDataViewModel(private val lang: String, private val id:Int) : ViewMo
 
     }
 
-    fun setDetailTv(lang: String, id: Int){
+    private fun setDetailTv(lang: String, id: Int){
         showLoading.postValue(true)
 
         service.getDetailTv(id, API_KEY, lang).enqueue(object : Callback<DetailTv>{
@@ -82,13 +93,37 @@ class DetailDataViewModel(private val lang: String, private val id:Int) : ViewMo
         })
     }
 
-    fun setFavorite(fav: FavoriteModel){
-        val idData: Int = fav.idData
-        val type: String = fav.type
+    fun setFavorite(favoriteModel: FavoriteModel){
 
-        if(repository.checkData(idData, type) == 0) {
-            //TODO insert data
-            isFavorite.value = true
+        disposable!!.add(Observable.fromCallable{favoriteDatabase?.favoriteDao()?.insert(favoriteModel)}
+            .subscribeOn(Schedulers.computation())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe())
+    }
+
+    fun deleteFavorite(id:Int, type:String){
+        disposable!!.add(Observable.fromCallable{favoriteDatabase?.favoriteDao()?.deleteFavorite(id,type)}
+            .subscribeOn(Schedulers.computation())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe())
+    }
+
+    fun checkFavorite(id:Int, type:String){
+        disposable!!.add(Observable.fromCallable{favoriteDatabase?.favoriteDao()?.checkFavoriteById(id,type)}
+            .subscribeOn(Schedulers.computation())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe{
+                isFavorite.value = it > 0
+            })
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+
+        if (disposable != null) {
+            disposable!!.clear()
+            disposable = null
         }
+
     }
 }

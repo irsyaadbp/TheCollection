@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import com.irsyaad.dicodingsubmission.thecollection.R
 import com.irsyaad.dicodingsubmission.thecollection.adapter.ViewPagerAdapter
 import com.irsyaad.dicodingsubmission.thecollection.ui.activity.setting.SettingActivity
@@ -70,7 +71,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setViewPager(){
-        viewPager.adapter = ViewPagerAdapter(this, supportFragmentManager)
+        viewPager.adapter = ViewPagerAdapter(this, supportFragmentManager, "main")
         tabLayout.setupWithViewPager(viewPager)
     }
 
