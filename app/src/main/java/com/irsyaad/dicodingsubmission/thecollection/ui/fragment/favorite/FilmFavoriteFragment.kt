@@ -1,4 +1,4 @@
-package com.irsyaad.dicodingsubmission.thecollection.ui.fragment
+package com.irsyaad.dicodingsubmission.thecollection.ui.fragment.favorite
 
 
 import android.content.Intent

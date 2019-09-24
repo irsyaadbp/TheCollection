@@ -30,7 +30,9 @@ class LanguageActivity : AppCompatActivity() {
 
         languagePref = getSharedPreferences("CURRENT_LANGUAGE", 0)
         defaultLanguage = Locale.getDefault().displayLanguage
-        val language = languagePref!!.getString("language", "" + defaultLanguage)!!
+        val language = languagePref!!.getString("language", "" + defaultLanguage)
+
+        Toast.makeText(this, "$language curent, device $defaultLanguage", Toast.LENGTH_SHORT).show()
 
         if (language == "en" || language == "English" || language == "english") {
             radioEnglish.isChecked = true

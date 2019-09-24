@@ -28,6 +28,10 @@ class ListDataViewModel(private val context: Context, private val parameter : St
     private val listFilm: MutableLiveData<List<ListDetailFilm>> = MutableLiveData()
     private val listTvShow: MutableLiveData<List<ListDetailTv>> = MutableLiveData()
 
+    private val listSearchFilm: MutableLiveData<List<ListDetailFilm>> = MutableLiveData()
+    private val listSearchTvShow: MutableLiveData<List<ListDetailTv>> = MutableLiveData()
+
+
     private val listFavorite: MutableLiveData<List<FavoriteModel>> = MutableLiveData()
 //    private val lisTvShowFavorite: MutableLiveData<List<FavoriteModel>> = MutableLiveData()
 
@@ -45,9 +49,17 @@ class ListDataViewModel(private val context: Context, private val parameter : St
         return listFilm
     }
 
+    fun getDataSearchFilm(): LiveData<List<ListDetailFilm>> {
+        return listSearchFilm
+    }
+
     fun getDataTv(): LiveData<List<ListDetailTv>> {
         if(listTvShow.value == null) setDataTv(parameter)
         return listTvShow
+    }
+
+    fun getDataSearchTv(): LiveData<List<ListDetailTv>> {
+        return listSearchTvShow
     }
 
     fun getDataFavorite(): LiveData<List<FavoriteModel>> {
@@ -74,6 +86,25 @@ class ListDataViewModel(private val context: Context, private val parameter : St
         })
     }
 
+    fun setDataSearchFilm(query : String,lang : String) {
+        showLoading.postValue(true)
+        service.getSearchFilm(API_KEY, lang, query).enqueue(object : Callback<ListFilmModel>{
+            override fun onResponse(call: Call<ListFilmModel>, response: Response<ListFilmModel>) {
+                showLoading.postValue(false)
+                isError.postValue(false)
+
+                val data = response.body()
+
+                listSearchFilm.postValue(data?.results)
+            }
+
+            override fun onFailure(call: Call<ListFilmModel>, t: Throwable) {
+                showLoading.postValue(false)
+                isError.postValue(true)
+            }
+        })
+    }
+
     fun setDataTv(lang: String){
         showLoading.postValue(true)
         service.getDataTv(API_KEY, lang).enqueue(object : Callback<ListTvModel>{
@@ -84,6 +115,25 @@ class ListDataViewModel(private val context: Context, private val parameter : St
                 val data = response.body()
 
                 listTvShow.postValue(data?.results)
+            }
+
+            override fun onFailure(call: Call<ListTvModel>, t: Throwable) {
+                showLoading.postValue(false)
+                isError.postValue(true)
+            }
+        })
+    }
+
+    fun setDataSearchTv(query: String,lang: String){
+        showLoading.postValue(true)
+        service.getSearchTv(API_KEY, lang, query).enqueue(object : Callback<ListTvModel>{
+            override fun onResponse(call: Call<ListTvModel>, response: Response<ListTvModel>) {
+                showLoading.postValue(false)
+                isError.postValue(false)
+
+                val data = response.body()
+
+                listSearchTvShow.postValue(data?.results)
             }
 
             override fun onFailure(call: Call<ListTvModel>, t: Throwable) {

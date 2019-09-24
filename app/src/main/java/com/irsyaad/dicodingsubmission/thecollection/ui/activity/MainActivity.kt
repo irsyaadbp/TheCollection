@@ -7,9 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import com.irsyaad.dicodingsubmission.thecollection.R
 import com.irsyaad.dicodingsubmission.thecollection.adapter.ViewPagerAdapter
+import com.irsyaad.dicodingsubmission.thecollection.ui.activity.search.SearchActivity
 import com.irsyaad.dicodingsubmission.thecollection.ui.activity.setting.SettingActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
@@ -23,20 +23,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        setSupportActionBar(toolbar)
-
-        setViewPager()
-
         languagePref = getSharedPreferences("CURRENT_LANGUAGE", 0)
         currentLanguage = languagePref.getString("language", Locale.getDefault().displayLanguage)
 
         changeLocale(currentLanguage!!)
 
+        setSupportActionBar(toolbar)
+        setViewPager()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.main_menu, menu)
+        menuInflater.inflate(R.menu.main_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -46,12 +43,17 @@ class MainActivity : AppCompatActivity() {
                 val menu = Intent(this, SettingActivity::class.java)
                 startActivity(menu)
                 finish()
-                return true
+                true
             }
             R.id.om_favorite -> {
                 val fav = Intent(this, FavoriteActivity::class.java)
                 startActivity(fav)
-                return true
+                true
+            }
+            R.id.om_search -> {
+                val search = Intent(this, SearchActivity::class.java)
+                startActivity(search)
+                true
             }
             else -> super.onOptionsItemSelected(item)
         }

@@ -19,4 +19,10 @@
    <string name="favorite">Disukai</string>
    <string name="remove_favorite">Dihapus dari disukai</string>
    <string name="fav_not_found">Tidak ada yang disukai</string>
+   <string name="search">Cari</string>
+   <string name="search_movie_hint">Cari Film</string>
+   <string name="notification">Notification</string>
+   <string name="search_tv_hint">Cari Acara TV</string>
+   <string name="daily_reminder">Pengingat Harian</string>
+   <string name="release_notification">Notifikasi Rilis</string>
 </resources>

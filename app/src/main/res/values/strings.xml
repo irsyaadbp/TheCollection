@@ -19,8 +19,11 @@
    <string name="tvshow">TV Show</string>
    <string name="favorite">Favorite</string>
    <string name="remove_favorite">Remove from favorite</string>
-
-   <!-- TODO: Remove or change this placeholder text -->
-   <string name="hello_blank_fragment">Hello blank fragment</string>
    <string name="fav_not_found">Favorite not found</string>
+   <string name="search">Search</string>
+   <string name="search_movie_hint">Search Movie</string>
+   <string name="search_tv_hint">Search TV Show</string>
+   <string name="notification">Notification</string>
+   <string name="daily_reminder">Daily Reminder</string>
+   <string name="release_notification">Release Notification</string>
 </resources>

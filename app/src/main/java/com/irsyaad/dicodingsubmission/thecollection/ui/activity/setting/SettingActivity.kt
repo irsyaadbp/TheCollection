@@ -23,6 +23,7 @@ class SettingActivity : AppCompatActivity(), View.OnClickListener {
         }
 
         settingLanguage.setOnClickListener(this)
+        settingNotification.setOnClickListener(this)
 
     }
 
@@ -33,6 +34,11 @@ class SettingActivity : AppCompatActivity(), View.OnClickListener {
                 startActivity(lang)
                 finish()
             }
+            R.id.settingNotification -> {
+                val notif = Intent(this, NotificationActivity::class.java)
+                startActivity(notif)
+            }
+
         }
     }
 

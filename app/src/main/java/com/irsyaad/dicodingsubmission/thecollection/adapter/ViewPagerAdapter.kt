@@ -5,9 +5,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.irsyaad.dicodingsubmission.thecollection.R
-import com.irsyaad.dicodingsubmission.thecollection.ui.fragment.FilmFavoriteFragment
+import com.irsyaad.dicodingsubmission.thecollection.ui.fragment.favorite.FilmFavoriteFragment
 import com.irsyaad.dicodingsubmission.thecollection.ui.fragment.FilmFragment
-import com.irsyaad.dicodingsubmission.thecollection.ui.fragment.TvShowFavoriteFragment
+import com.irsyaad.dicodingsubmission.thecollection.ui.fragment.favorite.TvShowFavoriteFragment
 import com.irsyaad.dicodingsubmission.thecollection.ui.fragment.TvShowFragment
 
 class ViewPagerAdapter(private val context : Context, fragmentManager : FragmentManager, private val from : String) : FragmentPagerAdapter(fragmentManager) {
@@ -23,8 +23,10 @@ class ViewPagerAdapter(private val context : Context, fragmentManager : Fragment
     )
 
     override fun getItem(position: Int): Fragment {
-        return if (from == "main") pages[position]
-        else pagesFavorite[position]
+        return when(from){
+            "main" -> pages[position]
+            else -> pagesFavorite[position]
+        }
     }
 
     override fun getCount(): Int {

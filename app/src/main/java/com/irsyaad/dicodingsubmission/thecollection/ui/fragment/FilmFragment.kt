@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.fragment_film.*
 class FilmFragment : Fragment() {
 
     private lateinit var viewModel: ListDataViewModel
-    private lateinit var lang: String
+    private val lang: String = "en-Us"
     private lateinit var filmAdapter: FilmRecyclerAdapter
 
     override fun onCreateView(
@@ -34,7 +34,6 @@ class FilmFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        lang = "en-Us"
 
         viewModel = ViewModelProviders.of(this, ViewModelFactory().viewModelFactory{ ListDataViewModel(context!!,lang)})[ListDataViewModel::class.java]
         isLoading()

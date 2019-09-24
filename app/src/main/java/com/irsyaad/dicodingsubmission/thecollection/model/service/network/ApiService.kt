@@ -17,9 +17,16 @@ interface ApiService {
     @GET("movie/{movie_id}")
     fun getDetailFilm(@Path("movie_id") movie_id: Int, @Query("api_key") api_key: String, @Query("language") lang: String): Call<DetailFilm>
 
+    @GET("search/movie")
+    fun getSearchFilm(@Query("api_key") api_key: String, @Query("language") lang: String, @Query("query") query: String): Call<ListFilmModel>
+
     @GET("discover/tv")
     fun getDataTv(@Query("api_key") api_key: String, @Query("language") lang: String): Call<ListTvModel>
 
     @GET("tv/{tv_id}")
     fun getDetailTv(@Path("tv_id") tv_id: Int, @Query("api_key") api_key: String, @Query("language") lang: String): Call<DetailTv>
+
+    @GET("search/tv")
+    fun getSearchTv(@Query("api_key") api_key: String, @Query("language") lang: String, @Query("query") query: String): Call<ListTvModel>
+
 }
