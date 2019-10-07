@@ -44,14 +44,14 @@ class FilmFavoriteFragment : Fragment() {
         viewModel.getDataFavorite().observe(this, Observer {result ->
             if(result != null){
                 favAdapter.setData(result)
-            }else{
-                viewModel.isError.value = true
+
+                if(result.isEmpty()) txtNotFound.visibility = View.VISIBLE
             }
         })
 
         favAdapter = FavoriteRecyclerAdapter(context!!){
             val detail = Intent(context, DetailFilmActivity::class.java)
-            detail.putExtra("idfilm", it.idData)
+            detail.putExtra("idFilm", it.idData)
             startActivity(detail)
         }
 
@@ -70,10 +70,12 @@ class FilmFavoriteFragment : Fragment() {
                 progressBarFilm.visibility = View.VISIBLE
                 recyclerViewFilm.visibility = View.GONE
                 errorFilm.visibility = View.GONE
+                txtNotFound.visibility = View.GONE
             }else{
                 recyclerViewFilm.visibility = View.VISIBLE
                 progressBarFilm.visibility = View.GONE
                 errorFilm.visibility = View.GONE
+                txtNotFound.visibility = View.GONE
             }
         })
     }
@@ -84,7 +86,8 @@ class FilmFavoriteFragment : Fragment() {
                 errorFilm.visibility = View.VISIBLE
                 recyclerViewFilm.visibility = View.GONE
                 progressBarFilm.visibility = View.GONE
-                Toast.makeText(context, "Connection to Server Error :(", Toast.LENGTH_LONG).show()
+                txtNotFound.visibility = View.GONE
+                Toast.makeText(context, getString(R.string.error_connection), Toast.LENGTH_LONG).show()
             }
         })
     }

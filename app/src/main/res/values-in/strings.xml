@@ -23,6 +23,21 @@
    <string name="search_movie_hint">Cari Film</string>
    <string name="notification">Notification</string>
    <string name="search_tv_hint">Cari Acara TV</string>
-   <string name="daily_reminder">Pengingat Harian</string>
-   <string name="release_notification">Notifikasi Rilis</string>
+   <string name="daily_reminder">Pengingat Harian (7 pagi)</string>
+   <string name="release_notification">Notifikasi Rilis (8 pagi)</string>
+   <string name="empty_text">Tidak Ada Data</string>
+   <string name="appwidget_text">Film Kesukaan</string>
+   <string name="add_widget">Tambahkan widget</string>
+   <string name="reminder_setup">Pengingat Harian Ditetapkan</string>
+   <string name="release_setup">Notifikasi Rilis Ditetapkan</string>
+   <string name="title_daily_reminder">Hai, Aku kangen nih</string>
+   <string name="msg_daily_reminder">Ayo kembali demi aku</string>
+   <string name="cancel_daily_reminder">Pengingat Harian Dibatalkan</string>
+   <string name="cancel_release">Notifikasi Rilis Dibatalkan</string>
+   <string name="error_connection">Hubunganku dengan server lagi gak jelas :(</string>
+   <string name="release">rilis lho</string>
+   <string name="msg_release">Yuk lihat detail filmnya</string>
+   <string name="search_not_found">Yang dicari sedang tidak ada :(</string>
+   <string name="not_found">Tidak ada yang disukai :(</string>
+
 </resources>

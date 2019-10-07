@@ -24,6 +24,20 @@
    <string name="search_movie_hint">Search Movie</string>
    <string name="search_tv_hint">Search TV Show</string>
    <string name="notification">Notification</string>
-   <string name="daily_reminder">Daily Reminder</string>
-   <string name="release_notification">Release Notification</string>
+   <string name="daily_reminder">Daily Reminder (7 am)</string>
+   <string name="release_notification">Release Notification (8 am)</string>
+   <string name="appwidget_text">Favorite Movie</string>
+   <string name="add_widget">Add widget</string>
+   <string name="empty_text">NO DATA</string>
+   <string name="reminder_setup">Daily Reminder Set Up</string>
+   <string name="release_setup">Release Notification Set Up</string>
+   <string name="title_daily_reminder">Hi, I miss you</string>
+   <string name="msg_daily_reminder">Please comeback for me</string>
+   <string name="cancel_daily_reminder">Daily Reminder Canceled</string>
+   <string name="cancel_release">Release Notification Canceled</string>
+   <string name="error_connection">Connection to Server Error :(</string>
+   <string name="release">release</string>
+   <string name="msg_release">Let\'s see the movie</string>
+   <string name="search_not_found">Search Not Found :(</string>
+   <string name="not_found">Not Found</string>
 </resources>

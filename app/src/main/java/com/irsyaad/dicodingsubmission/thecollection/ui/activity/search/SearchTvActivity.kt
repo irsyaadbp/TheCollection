@@ -45,6 +45,7 @@ class SearchTvActivity : AppCompatActivity() {
         viewModel.getDataSearchTv().observe(this@SearchTvActivity, Observer { result ->
             if(result != null){
                 TvAdapter.setData(result)
+                if(result.isEmpty()) Toast.makeText(this, getString(R.string.search_not_found), Toast.LENGTH_SHORT).show()
             }
         })
 
@@ -98,7 +99,7 @@ class SearchTvActivity : AppCompatActivity() {
                 errorTv.visibility = View.VISIBLE
                 recyclerViewSearchTv.visibility = View.GONE
                 progressBarTv.visibility = View.GONE
-                Toast.makeText(this, "Connection to Server Error :(", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, getString(R.string.error_connection), Toast.LENGTH_LONG).show()
             }
         })
     }

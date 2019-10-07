@@ -50,8 +50,11 @@ class SearchFilmActivity : AppCompatActivity() {
         search()
 
         viewModel.getDataSearchFilm().observe(this@SearchFilmActivity, Observer { result ->
+
             if(result != null){
                 filmAdapter.setData(result)
+
+                if(result.isEmpty()) Toast.makeText(this, getString(R.string.search_not_found), Toast.LENGTH_SHORT).show()
             }
         })
 
@@ -105,7 +108,7 @@ class SearchFilmActivity : AppCompatActivity() {
                 errorFilm.visibility = View.VISIBLE
                 recyclerViewSearchFilm.visibility = View.GONE
                 progressBarFilm.visibility = View.GONE
-                Toast.makeText(this, "Connection to Server Error :(", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, getString(R.string.error_connection), Toast.LENGTH_LONG).show()
             }
         })
     }

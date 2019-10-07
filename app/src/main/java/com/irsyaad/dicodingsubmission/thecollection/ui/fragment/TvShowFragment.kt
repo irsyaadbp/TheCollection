@@ -84,7 +84,7 @@ class TvShowFragment : Fragment() {
                 errorTv.visibility = View.VISIBLE
                 recyclerViewTv.visibility = View.GONE
                 progressBarTv.visibility = View.GONE
-                Toast.makeText(context, "Connection Error :(", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, getString(R.string.error_connection), Toast.LENGTH_LONG).show()
             }
         })
     }

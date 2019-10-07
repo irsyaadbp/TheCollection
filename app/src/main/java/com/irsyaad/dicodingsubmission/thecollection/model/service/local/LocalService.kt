@@ -1,5 +1,6 @@
 package com.irsyaad.dicodingsubmission.thecollection.model.service.local
 
+import android.database.Cursor
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -19,4 +20,9 @@ interface LocalService {
 
     @Query("DELETE FROM favorite WHERE id_data = :idData AND type = :type")
     fun deleteFavorite(idData:Int, type: String)
+
+    //Provider
+    @Query("SELECT * FROM favorite WHERE type == :type")
+    fun getFavoriteProvider(type: String): Cursor
+
 }

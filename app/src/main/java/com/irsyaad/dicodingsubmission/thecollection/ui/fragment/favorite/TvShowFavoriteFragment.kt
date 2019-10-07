@@ -44,8 +44,8 @@ class TvShowFavoriteFragment : Fragment() {
         viewModel.getDataFavorite().observe(this, Observer {result ->
             if(result != null){
                 favAdapter.setData(result)
-            }else{
-                viewModel.isError.value = true
+                if(result.isEmpty()) txtNotFound.visibility = View.VISIBLE
+
             }
         })
 
@@ -69,10 +69,14 @@ class TvShowFavoriteFragment : Fragment() {
                 progressBarTv.visibility = View.VISIBLE
                 recyclerViewTv.visibility = View.GONE
                 errorTv.visibility = View.GONE
+                txtNotFound.visibility = View.GONE
+
             }else{
                 recyclerViewTv.visibility = View.VISIBLE
                 progressBarTv.visibility = View.GONE
                 errorTv.visibility = View.GONE
+                txtNotFound.visibility = View.GONE
+
             }
         })
     }
@@ -83,7 +87,8 @@ class TvShowFavoriteFragment : Fragment() {
                 errorTv.visibility = View.VISIBLE
                 recyclerViewTv.visibility = View.GONE
                 progressBarTv.visibility = View.GONE
-                Toast.makeText(context, "Connection to Server Error :(", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, getString(R.string.error_connection), Toast.LENGTH_LONG).show()
+                txtNotFound.visibility = View.GONE
             }
         })
     }

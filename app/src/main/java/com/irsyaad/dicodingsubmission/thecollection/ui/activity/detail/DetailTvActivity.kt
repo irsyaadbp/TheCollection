@@ -125,7 +125,7 @@ class DetailTvActivity : AppCompatActivity() {
                 nestedScroll.visibility = View.GONE
                 progressBarTvDetail.visibility = View.GONE
                 errorTvDetail.visibility = View.VISIBLE
-                Toast.makeText(this, "Connection to Server Error :(", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, getString(R.string.error_connection), Toast.LENGTH_LONG).show()
             }
         })
     }

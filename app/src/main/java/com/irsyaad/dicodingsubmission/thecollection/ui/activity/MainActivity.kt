@@ -79,9 +79,15 @@ class MainActivity : AppCompatActivity() {
 
     @Suppress("DEPRECATION")
     private fun changeLocale(lang: String) {
-        if (lang.equals("", ignoreCase = true))
-            return
-        val myLocale = Locale(lang)
+        if (lang.equals("", ignoreCase = true)) return
+
+        val language = if (lang == "en" || lang == "English" || lang == "english") {
+            "en"
+        } else {
+            "id"
+        }
+
+        val myLocale = Locale(language)
         Locale.setDefault(myLocale)
         val config = Configuration()
         config.locale = myLocale

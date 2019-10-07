@@ -15,48 +15,48 @@
 
    <TextView
            android:id="@+id/tvDaily"
-           android:layout_width="wrap_content"
+           android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:text="@string/daily_reminder"
            app:layout_constraintStart_toStartOf="parent"
            app:layout_constraintTop_toBottomOf="@id/toolbar"
            android:layout_marginTop="@dimen/activity_margin"
            android:layout_marginStart="@dimen/activity_margin"
+           android:paddingTop="@dimen/item_margin"
+           android:paddingBottom="@dimen/item_margin"
            android:textStyle="bold"/>
 
    <Switch
            android:id="@+id/switchDaily"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:layout_marginTop="@dimen/item_margin"
            android:layout_marginEnd="@dimen/activity_margin"
            android:theme="@style/TheCollectionSwitch"
-           app:layout_constraintEnd_toEndOf="parent"
-           app:layout_constraintHorizontal_bias="1.0"
-           app:layout_constraintStart_toEndOf="@id/tvDaily"
-           app:layout_constraintTop_toBottomOf="@id/toolbar" />
+           app:layout_constraintBottom_toBottomOf="@id/tvDaily"
+           app:layout_constraintEnd_toEndOf="@id/tvDaily"
+           app:layout_constraintTop_toTopOf="@id/tvDaily" />
 
    <TextView
            android:id="@+id/tvRelease"
-           android:layout_width="wrap_content"
+           android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:text="@string/release_notification"
            app:layout_constraintStart_toStartOf="parent"
            app:layout_constraintTop_toBottomOf="@id/tvDaily"
            android:layout_marginTop="32dp"
            android:layout_marginStart="@dimen/activity_margin"
+           android:paddingTop="@dimen/item_margin"
+           android:paddingBottom="@dimen/item_margin"
            android:textStyle="bold"/>
 
    <Switch
            android:id="@+id/switchRelease"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:layout_marginTop="24dp"
            android:layout_marginEnd="@dimen/activity_margin"
            android:theme="@style/TheCollectionSwitch"
-           app:layout_constraintEnd_toEndOf="parent"
-           app:layout_constraintHorizontal_bias="1.0"
-           app:layout_constraintStart_toEndOf="@id/tvRelease"
-           app:layout_constraintTop_toBottomOf="@id/switchDaily" />
+           app:layout_constraintBottom_toBottomOf="@id/tvRelease"
+           app:layout_constraintEnd_toEndOf="@id/tvRelease"
+           app:layout_constraintTop_toTopOf="@id/tvRelease" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

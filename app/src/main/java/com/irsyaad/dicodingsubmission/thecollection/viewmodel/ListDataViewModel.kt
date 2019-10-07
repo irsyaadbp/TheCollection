@@ -1,13 +1,10 @@
 package com.irsyaad.dicodingsubmission.thecollection.viewmodel
 
 import android.content.Context
-import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.irsyaad.dicodingsubmission.thecollection.BuildConfig.API_KEY
-import com.irsyaad.dicodingsubmission.thecollection.R
 import com.irsyaad.dicodingsubmission.thecollection.model.*
 import com.irsyaad.dicodingsubmission.thecollection.model.service.local.FavoriteDatabase
 import com.irsyaad.dicodingsubmission.thecollection.model.service.network.ApiRepository
@@ -19,7 +16,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ListDataViewModel(private val context: Context, private val parameter : String) : ViewModel() {
+class ListDataViewModel(context: Context, private val parameter : String) : ViewModel() {
 
     private val service = ApiRepository.getData()
     private var favoriteDatabase: FavoriteDatabase? = null
@@ -31,9 +28,7 @@ class ListDataViewModel(private val context: Context, private val parameter : St
     private val listSearchFilm: MutableLiveData<List<ListDetailFilm>> = MutableLiveData()
     private val listSearchTvShow: MutableLiveData<List<ListDetailTv>> = MutableLiveData()
 
-
     private val listFavorite: MutableLiveData<List<FavoriteModel>> = MutableLiveData()
-//    private val lisTvShowFavorite: MutableLiveData<List<FavoriteModel>> = MutableLiveData()
 
     var showLoading: MutableLiveData<Boolean> = MutableLiveData()
     var isError: MutableLiveData<Boolean> = MutableLiveData()
@@ -154,7 +149,6 @@ class ListDataViewModel(private val context: Context, private val parameter : St
                     isError.postValue(false)
                     
                     listFavorite.postValue(it)
-                    if (it.isEmpty()) Toast.makeText(context, context.getString(R.string.fav_not_found), Toast.LENGTH_SHORT).show()
                 },
                 {
                     showLoading.postValue(false)

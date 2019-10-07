@@ -20,6 +20,9 @@ interface ApiService {
     @GET("search/movie")
     fun getSearchFilm(@Query("api_key") api_key: String, @Query("language") lang: String, @Query("query") query: String): Call<ListFilmModel>
 
+    @GET("discover/movie")
+    fun getReleaseFilmToday(@Query("api_key") api_key: String, @Query("primary_release_date.gte") dateGte: String, @Query("primary_release_date.lte") dateLte: String): Call<ListFilmModel>
+
     @GET("discover/tv")
     fun getDataTv(@Query("api_key") api_key: String, @Query("language") lang: String): Call<ListTvModel>
 
@@ -28,5 +31,4 @@ interface ApiService {
 
     @GET("search/tv")
     fun getSearchTv(@Query("api_key") api_key: String, @Query("language") lang: String, @Query("query") query: String): Call<ListTvModel>
-
 }

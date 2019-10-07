@@ -3,6 +3,9 @@
         package="com.irsyaad.dicodingsubmission.thecollection">
 
    <uses-permission android:name="android.permission.INTERNET" />
+   <uses-permission android:name="android.permission.WAKE_LOCK" />
+   <uses-permission android:name="android.permission.VIBRATE" />
+   <permission android:name="com.irsyaad.dicodingsubmission.thecollection.READ_DATABASE" android:protectionLevel="normal" />
 
    <application
            android:name=".StethoClass"
@@ -12,7 +15,25 @@
            android:roundIcon="@mipmap/ic_launcher_round"
            android:supportsRtl="true"
            android:theme="@style/AppTheme">
-      <activity android:name=".ui.activity.search.SearchTvActivity"></activity>
+      <receiver
+              android:name=".reminder.AlarmReceiver"
+              android:enabled="true"
+              android:exported="true" />
+      <receiver android:name=".ui.widget.FilmFavoriteWidget">
+         <intent-filter>
+            <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+         </intent-filter>
+
+         <meta-data
+                 android:name="android.appwidget.provider"
+                 android:resource="@xml/film_favorite_widget_info" />
+      </receiver>
+
+      <service
+              android:name="com.irsyaad.dicodingsubmission.thecollection.model.service.StackWidgetService"
+              android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+      <activity android:name=".ui.activity.search.SearchTvActivity" />
       <activity android:name=".ui.activity.search.SearchFilmActivity" />
       <activity android:name=".ui.activity.search.SearchActivity" />
       <activity android:name=".ui.activity.setting.NotificationActivity" />
@@ -28,6 +49,12 @@
             <category android:name="android.intent.category.LAUNCHER" />
          </intent-filter>
       </activity>
+
+      <provider
+              android:authorities="com.irsyaad.dicodingsubmission.thecollection"
+              android:name=".provider.FavoriteProvider"
+              android:exported="true"
+              android:readPermission="com.irsyaad.dicodingsubmission.thecollection.READ_DATABASE" />
    </application>
 
 </manifest>

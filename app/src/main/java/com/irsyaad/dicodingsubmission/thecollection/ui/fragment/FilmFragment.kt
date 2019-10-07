@@ -19,6 +19,7 @@ import com.irsyaad.dicodingsubmission.thecollection.viewmodel.ViewModelFactory
 
 import kotlinx.android.synthetic.main.fragment_film.*
 
+
 class FilmFragment : Fragment() {
 
     private lateinit var viewModel: ListDataViewModel
@@ -48,7 +49,7 @@ class FilmFragment : Fragment() {
 
         filmAdapter = FilmRecyclerAdapter(context!!){
             val detail = Intent(context, DetailFilmActivity::class.java)
-            detail.putExtra("idfilm", it.id)
+            detail.putExtra("idFilm", it.id)
             startActivity(detail)
         }
 
@@ -80,7 +81,7 @@ class FilmFragment : Fragment() {
                 errorFilm.visibility = View.VISIBLE
                 recyclerViewFilm.visibility = View.GONE
                 progressBarFilm.visibility = View.GONE
-                Toast.makeText(context, "Connection to Server Error :(", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, getString(R.string.error_connection), Toast.LENGTH_LONG).show()
             }
         })
     }
@@ -91,4 +92,5 @@ class FilmFragment : Fragment() {
             swipeRefreshFilm.isRefreshing = false
         }
     }
+
 }
